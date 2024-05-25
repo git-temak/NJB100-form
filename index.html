@@ -57,7 +57,7 @@
     <div class="container">
         <h1>Simple Form</h1>
         <a href="https://github.com/git-temak/Zuri-24/tree/NJB100">Repo: https://github.com/git-temak/Zuri-24/tree/NJB100</a>
-        <form id="myForm" action="/submit" method="POST">
+        <form id="myForm" action="https://git-temak.github.io/NJB100-form/submit" method="POST">
             <label for="firstName">First Name:</label>
             <input type="text" id="firstName" name="firstName"><br>
 
@@ -90,7 +90,7 @@
 
             const formData = new FormData(this); // Get form data
 
-            fetch('/submit', {
+            fetch('https://git-temak.github.io/NJB100-form/submit', {
                 method: 'POST',
                 body: formData
             })
