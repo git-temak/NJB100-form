@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Form</h1>
+        <a href="https://github.com/git-temak/Zuri-24/tree/NJB100">Repo: https://github.com/git-temak/Zuri-24/tree/NJB100</a>
+        <form id="myForm" action="/submit" method="POST">
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName"><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName"><br>
+
+            <label for="otherNames">Other Names:</label>
+            <input type="text" id="otherNames" name="otherNames"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone"><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this); // Get form data
+
+            fetch('/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    return response.json().then(data => {
+                        throw new Error(data.errors.join('\n'));
+                    });
+                }
+            })
+            .then(responseText => {
+                console.log(responseText);
+                this.reset(); // Reset form
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
+        });
+    </script>
+</body>
+</html>
